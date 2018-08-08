@@ -51,6 +51,7 @@
             }
         },
         beforeCreate() {
+            // 在当前实例上添加一个 uploadsUrl 属性
             this.uploadsUrl = 'https://vuejscaffcdn.phphub.org/uploads/'
         },
         methods: {

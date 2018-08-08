@@ -1,6 +1,8 @@
 <template>
     <div class="row">
         <div class="col-md-4 col-md-offset-4 floating-box">
+            <!-- 消息组件 -->
+            <Message :show.sync="msgShow" :type="msgType" :msg="msg"/>
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">请注册</h3>
@@ -47,7 +49,10 @@
                 username: '', // 用户名
                 password: '', // 密码
                 cpassword: '', // 确认密码
-                captcha: '' // 验证码
+                captcha: '', // 验证码
+                msg: '', // 消息
+                msgType: '', // 消息类型
+                msgShow: false // 是否显示消息，默认不显示
             }
         },
         created() {
@@ -71,7 +76,7 @@
             },
             submit() {
                 if (this.captcha.toUpperCase() !== this.localCaptcha) {
-                    alert('验证码不正确')
+                    this.showMsg('验证码不正确')
                     this.getCaptcha()
                 } else {
                     const user = {
@@ -83,7 +88,7 @@
 
                     if (localUser) {
                         if (localUser.name === user.name) {
-                            alert('用户名已存在')
+                            this.showMsg('用户名已存在')
                         } else {
                             this.login(user)
                         }
@@ -94,7 +99,16 @@
             },
             login(user) {
                 ls.setItem('user', user)
-                alert('注册成功')
+                this.showMsg('注册成功', 'success')
+            },
+            showMsg(msg, type = 'warning') {
+                this.msg = msg
+                this.msgType = type
+                this.msgShow = false
+
+                this.$nextTick(() => {
+                    this.msgShow = true
+                })
             }
         }
     }
