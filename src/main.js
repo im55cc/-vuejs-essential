@@ -9,6 +9,10 @@ import './components'
 import store from './store'
 // 引入插件
 import VueSweetalert2 from './plugins/vue-sweetalert2'
+import Message from './plugins/message'
+
+
+Vue.use(Message)
 Vue.use(VueSweetalert2) //使用插件
 Vue.config.productionTip = false
 
