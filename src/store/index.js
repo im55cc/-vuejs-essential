@@ -4,6 +4,7 @@ import ls from '../utils/localStorage'
 import router from '../router'
 // 引入 actions.js 的所有导出
 import * as moreActions from './actions'
+import * as moreGetters from './getters'
 Vue.use(Vuex)
 
 const state = {
@@ -21,6 +22,12 @@ const mutations = {
     UPDATE_AUTH(state, auth) {
         state.auth = auth
         ls.setItem('auth', auth)
+    },
+    // 更改所有文章的事件类型
+    // 更改所有文章的事件类型
+    UPDATE_ARTICLES(state, articles) {
+        state.articles = articles
+        ls.setItem('articles', articles)
     }
 }
 
@@ -52,9 +59,9 @@ const actions = {
 const getters = {
     // 第一个参数是 state ,因为要传 id，所以这里返回一个函数
     getArticleById: (state) => (id) => {
-        // 从仓库获取所有文章
-        let articles = state.articles
-
+        // 从仓库获取所有文章 let articles = state.articles
+        // 使用派生状态 computedArticles 作为所有文章
+        let articles = getters.computedArticles
         // 所有文章是一个数组时
         if (Array.isArray(articles)) {
             articles = articles.filter(article => parseInt(id) === parseInt(article.articleId))
@@ -62,7 +69,9 @@ const getters = {
         } else {
             return null
         }
-    }
+    },
+    // 混入 moreGetters, 你可以理解为 getters = Object.assign(getters, moreGetters)
+    ...moreGetters
 }
 
 const store = new Vuex.Store({
