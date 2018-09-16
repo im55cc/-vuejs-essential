@@ -61,6 +61,12 @@ export default [
         component: () => import('@/views/articles/Create'),
         meta: { auth: true }
     },
+    // Search
+    {
+        path: '/search',
+        name: 'Search',
+        component: () => import('@/views/Search')
+    },
     // Column
     {
         path: '/:user',
