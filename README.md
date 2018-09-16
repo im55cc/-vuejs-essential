@@ -59,3 +59,5 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 - 使用 axios 发起 Ajax 请求；
 - 使用按键修饰符 —— .enter；
 - 在计算属性中定义 setter；
+## 预览地址
+https://im55cc.github.io/vuejs-essential/dist
